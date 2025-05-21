@@ -65,7 +65,7 @@ option(PRESTO_ENABLE_JWT "Enable JWT (JSON Web Token) authentication" OFF)
 
 option(PRESTO_ENABLE_ARROW_FLIGHT_CONNECTOR "Enable Arrow Flight connector" OFF)
 
-option(PRESTO_ENABLE_TPCDS_CONNECTOR "Enable TPC-DS connector" OFF)
+option(PRESTO_ENABLE_TPCDS_CONNECTOR "Enable TPC-DS connector" ON)
 
 # Set all Velox options below
 add_compile_definitions(FOLLY_HAVE_INT128_T=1)
@@ -127,7 +127,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 if(DEFINED ENV{INSTALL_PREFIX})
   message(STATUS "Dependency install directory set to: $ENV{INSTALL_PREFIX}")
-  list(APPEND CMAKE_PREFIX_PATH "$ENV{INSTALL_PREFIX}")
+  list(PREPEND CMAKE_PREFIX_PATH "$ENV{INSTALL_PREFIX}")
 endif()
 
 set(Boost_USE_MULTITHREADED TRUE)

@@ -123,6 +123,26 @@ if(PRESTO_ENABLE_REMOTE_FUNCTIONS)
   target_link_libraries(presto_server_lib presto_server_remote_function)
 endif()
 
+<<<<<<< Updated upstream
+=======
+set_property(TARGET presto_server_lib PROPERTY JOB_POOL_LINK
+                                               presto_link_job_pool)
+
+
+# velox_tpch_connector is an OBJECT target in Velox and so needs to be linked
+# to the executable or use TARGET_OBJECT linkage for the presto_server_lib target.
+# However, we also would need to add its dependencies (tpch_gen etc).
+# TODO change the target in Velox to a library target then we can move this to the
+# presto_server_lib.
+target_link_libraries(presto_server presto_server_lib velox_tpch_connector)
+
+# Clang requires explicit linking with libatomic.
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"
+   AND "${CMAKE_CXX_COMPILER_VERSION}" VERSION_GREATER_EQUAL 15)
+  target_link_libraries(presto_server atomic)
+endif()
+
+>>>>>>> Stashed changes
 set_property(TARGET presto_server PROPERTY JOB_POOL_LINK presto_link_job_pool)
 
 if(PRESTO_ENABLE_TESTING)

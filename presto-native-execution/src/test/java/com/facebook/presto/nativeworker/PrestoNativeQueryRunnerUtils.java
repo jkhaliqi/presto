@@ -444,7 +444,8 @@ public class PrestoNativeQueryRunnerUtils
                 false,
                 false,
                 false,
-                extraProperties);
+                extraProperties,
+                true);
     }
 
     public static QueryRunner createNativeQueryRunner(boolean useThrift)

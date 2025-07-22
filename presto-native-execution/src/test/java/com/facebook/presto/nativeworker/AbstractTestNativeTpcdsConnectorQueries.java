@@ -32,10 +32,10 @@ public abstract class AbstractTestNativeTpcdsConnectorQueries
     protected void testMissingTpcdsConnector(String expectedErrorMessageRegExp)
     {
         Session session = Session.builder(getSession())
-                .setCatalog("tpcds")
+                .setCatalog("tpcdss")
                 .setSchema("tiny")
                 .build();
-        // No tpch catalog exists in the native worker.
+        // No tpcds catalog exists in the native worker.
         assertQueryFails(session, "SELECT * FROM catalog_returns", expectedErrorMessageRegExp);
     }
 

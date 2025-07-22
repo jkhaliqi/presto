@@ -41,6 +41,6 @@ public class TestPrestoNativeTpcdsConnectorQueries
     @Override
     public void testMissingTpcdsConnector()
     {
-        super.testMissingTpcdsConnector("No nodes available to run query");
+        super.testMissingTpcdsConnector("Catalog tpcdss does not exist");
     }
 }

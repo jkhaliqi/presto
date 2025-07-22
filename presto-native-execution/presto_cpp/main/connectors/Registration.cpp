@@ -25,6 +25,7 @@
 #ifdef PRESTO_ENABLE_TPCDS_CONNECTOR
 #include "velox/connectors/tpcds/TpcdsConnector.h"
 #endif
+#include "velox/connectors/tpcds/TpcdsConnector.h"
 
 namespace facebook::presto {
 namespace {
@@ -47,6 +48,13 @@ void registerConnectorFactories() {
           velox::connector::tpch::TpchConnectorFactory::kTpchConnectorName)) {
     velox::connector::registerConnectorFactory(
         std::make_shared<velox::connector::tpch::TpchConnectorFactory>());
+  }
+  velox::connector::registerConnectorFactory(
+        std::make_shared<velox::connector::tpcds::TpcdsConnectorFactory>());
+    if (!velox::connector::hasConnectorFactory(
+          velox::connector::tpcds::TpcdsConnectorFactory::kTpcdsConnectorName)) {
+    velox::connector::registerConnectorFactory(
+        std::make_shared<velox::connector::tpcds::TpcdsConnectorFactory>());
   }
 #ifdef PRESTO_ENABLE_TPCDS_CONNECTOR
   if (!velox::connector::hasConnectorFactory(
@@ -85,6 +93,8 @@ void registerConnectors() {
       std::make_unique<IcebergPrestoToVeloxConnector>(kIcebergConnectorName));
   registerPrestoToVeloxConnector(std::make_unique<TpchPrestoToVeloxConnector>(
       velox::connector::tpch::TpchConnectorFactory::kTpchConnectorName));
+    registerPrestoToVeloxConnector(
+      std::make_unique<TpcdsPrestoToVeloxConnector>("tpcds"));
 #ifdef PRESTO_ENABLE_TPCDS_CONNECTOR
   registerPrestoToVeloxConnector(
       std::make_unique<TpcdsPrestoToVeloxConnector>("tpcds"));

@@ -27,6 +27,19 @@ public abstract class AbstractTestNativeTpcdsConnectorQueries
     }
 
     @Test
+    public abstract void testMissingTpcdsConnector();
+
+    protected void testMissingTpcdsConnector(String expectedErrorMessageRegExp)
+    {
+        Session session = Session.builder(getSession())
+                .setCatalog("tpcds")
+                .setSchema("tiny")
+                .build();
+        // No tpch catalog exists in the native worker.
+        assertQueryFails(session, "SELECT * FROM catalog_returns", expectedErrorMessageRegExp);
+    }
+
+    @Test
     public void testTpcdsTinyTablesRowCount()
     {
         Session session = getSession();

@@ -23,13 +23,24 @@ public class TestPrestoNativeTpcdsConnectorQueries
     protected QueryRunner createQueryRunner()
             throws Exception
     {
-        return PrestoNativeQueryRunnerUtils.createNativeQueryRunner(false, false, true);
+        return PrestoNativeQueryRunnerUtils.nativeHiveQueryRunnerBuilder()
+                .setAddStorageFormatToPath(true)
+                .setUseThrift(true)
+                .build();
     }
 
     @Override
     protected ExpectedQueryRunner createExpectedQueryRunner()
             throws Exception
     {
-        return PrestoNativeQueryRunnerUtils.createJavaQueryRunner();
+        return PrestoNativeQueryRunnerUtils.javaHiveQueryRunnerBuilder()
+                .setAddStorageFormatToPath(true)
+                .build();
+    }
+
+    @Override
+    public void testMissingTpcdsConnector()
+    {
+        super.testMissingTpcdsConnector("No nodes available to run query");
     }
 }

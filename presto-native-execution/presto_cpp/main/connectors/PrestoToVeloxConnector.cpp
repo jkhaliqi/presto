@@ -1579,9 +1579,7 @@ TpcdsPrestoToVeloxConnector::toVeloxTableHandle(
     const protocol::TableHandle& tableHandle,
     const VeloxExprConverter& exprConverter,
     const TypeParser& typeParser,
-    std::unordered_map<
-        std::string,
-        std::shared_ptr<velox::connector::ColumnHandle>>& assignments) const {
+    velox::connector::ColumnHandleMap& assignments) const {
   auto tpcdsLayout =
       std::dynamic_pointer_cast<const protocol::tpcds::TpcdsTableLayoutHandle>(
           tableHandle.connectorTableLayout);

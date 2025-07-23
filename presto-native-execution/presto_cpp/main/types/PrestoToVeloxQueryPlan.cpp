@@ -1264,7 +1264,7 @@ core::PlanNodePtr VeloxQueryPlanConverterBase::toVeloxQueryPlan(
   return std::make_shared<core::NestedLoopJoinNode>(
       node->id,
       joinType,
-      node->filter ? exprConverter_.toVeloxExpr(*node->filter) : nullptr,
+      node->filter ? exprConverter_.toVeloxExpr(node->filter) : nullptr,
       toVeloxQueryPlan(node->left, tableWriteInfo, taskId),
       toVeloxQueryPlan(node->right, tableWriteInfo, taskId),
       toRowType(node->outputVariables, typeParser_));
@@ -1903,6 +1903,10 @@ core::PlanNodePtr VeloxQueryPlanConverterBase::toVeloxQueryPlan(
   if (auto markDistinct =
           std::dynamic_pointer_cast<const protocol::MarkDistinctNode>(node)) {
     return toVeloxQueryPlan(markDistinct, tableWriteInfo, taskId);
+  }
+  if (auto spatialJoin =
+          std::dynamic_pointer_cast<const protocol::SpatialJoinNode>(node)) {
+    return toVeloxQueryPlan(spatialJoin, tableWriteInfo, taskId);
   }
   if (auto sampleNode =
           std::dynamic_pointer_cast<const protocol::SampleNode>(node)) {

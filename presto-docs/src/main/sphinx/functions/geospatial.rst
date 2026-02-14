@@ -145,6 +145,9 @@ Relationship Tests
     Returns ``true`` if the given geometries represent the same geometry
     according to ISO SQL/MM semantics. Also returns ``true`` if both geometries are empty,
     regardless of their geometry types.
+    Note: A legacy implementation is available by using the ``legacy_st_equals`` session property
+    or ``legacy-st-equals`` configuration property. The legacy behavior returns ``false`` for
+    any two empty geometry comparisons, but otherwise behaves the same.
 
 .. function:: ST_Intersects(Geometry, Geometry) -> boolean
 

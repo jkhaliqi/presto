@@ -1108,10 +1108,17 @@ VeloxQueryPlanConverterBase::toVeloxQueryPlan(
     globalGroupingSets = node->groupingSets.globalGroupingSets;
   }
 
+  // Convert grouping keys. If hashVariable is present, add it to the grouping
+  // keys so it's available for hash-based partitioning.
+  auto groupingKeys = toVeloxExprs(node->groupingSets.groupingKeys);
+  if (node->hashVariable) {
+    groupingKeys.push_back(toVeloxExprs({*node->hashVariable})[0]);
+  }
+
   return std::make_shared<core::AggregationNode>(
       node->id,
       step,
-      toVeloxExprs(node->groupingSets.groupingKeys),
+      groupingKeys,
       streamable ? toVeloxExprs(node->preGroupedVariables)
                  : std::vector<core::FieldAccessTypedExprPtr>{},
       aggregateNames,

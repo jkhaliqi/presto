@@ -14,7 +14,6 @@
 
 package com.facebook.presto.geospatial;
 
-import com.facebook.presto.Session;
 import com.facebook.presto.operator.scalar.AbstractTestFunctions;
 import com.facebook.presto.operator.scalar.FunctionAssertions;
 import com.facebook.presto.sql.analyzer.FeaturesConfig;
@@ -167,13 +166,13 @@ public class TestGeoRelations
     @Test
     public void testSTEqualsLegacyBehavior()
     {
-        Session legacySession = Session.builder(session)
-                .setSystemProperty("legacy_st_equals", "true")
-                .build();
+        FunctionsConfig legacyFunctionsConfig = new FunctionsConfig();
+        legacyFunctionsConfig.setLegacyStEquals(true);
+
         FunctionAssertions legacyAssertions = new FunctionAssertions(
-                legacySession,
+                session,
                 new FeaturesConfig(),
-                new FunctionsConfig(),
+                legacyFunctionsConfig,
                 false);
 
         try {

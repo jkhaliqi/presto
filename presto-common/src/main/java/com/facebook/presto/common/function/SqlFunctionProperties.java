@@ -139,11 +139,6 @@ public class SqlFunctionProperties
         return tryCatchableErrorCodes;
     }
 
-    public boolean isLegacyStEquals()
-    {
-        return legacyStEquals;
-    }
-
     @Override
     public boolean equals(Object o)
     {

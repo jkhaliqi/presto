@@ -881,10 +881,10 @@ The value represents the max background fetch threads for refreshing metadata.
 * **Type:** ``boolean``
 * **Default value:** ``false``
 
-When enabled, the JDBC driver executes a validation query (``SELECT 1``) immediately
-after establishing a connection to ensure it is working properly before returning it
-to the application. This is useful for applications using connection pooling or
-experiencing intermittent connectivity issues, as it allows early detection of failed
+When enabled, the JDBC driver executes a validation query (``SELECT 1``) immediately 
+after establishing a connection to ensure it is working properly before returning it 
+to the application. This is useful for applications using connection pooling or 
+experiencing intermittent connectivity issues, as it allows early detection of failed 
 connections rather than discovering connection problems during the first query execution.
 
 To enable connection validation, add ``validateConnection=true`` to the JDBC connection URL::
@@ -900,8 +900,8 @@ Or set it by using connection properties::
 
 .. note::
 
-    Enabling connection validation adds a small overhead during connection establishment
-    due to the execution of the validation query. This is typically negligible but should
+    Enabling connection validation adds a small overhead during connection establishment 
+    due to the execution of the validation query. This is typically negligible but should 
     be considered in high-frequency connection scenarios.
 
 

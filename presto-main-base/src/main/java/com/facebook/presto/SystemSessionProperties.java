@@ -2355,7 +2355,7 @@ public final class SystemSessionProperties
                         LEGACY_ST_EQUALS,
                         "Use legacy ST_Equals function (warning: this will be removed)",
                         functionsConfig.isLegacyStEquals(),
-                        false));
+                        true));
     }
 
     public static int getMaxPrefixesCount(Session session)
